@@ -277,8 +277,8 @@ class Net(nn.Module):
         self.dropout1 = nn.Dropout(0.25)
         self.dropout2 = nn.Dropout(0.5)
         self.fc1 = nn.Linear(9216, 128)
-        self.fc2 = nn.Linear(128,22 )
-        self.fc3 = nn.Linear(22, 10)
+        self.fc2 = nn.Linear(128,36 )
+        self.fc3 = nn.Linear(36, 10)
         self.pool = nn.MaxPool2d(2)
         self.relu = nn.ReLU(inplace=False)
         self.flatten = nn.Flatten()
@@ -286,22 +286,21 @@ class Net(nn.Module):
 
     def forward(self, x):
         x = self.relu(self.conv1(x))
-        #x = F.relu(x)
         x = self.relu(self.conv2(x))
-        #x = F.relu(x)
         x = self.pool(x)
         #x = self.dropout1(x)
         x = torch.flatten(x, 1)
         x = self.relu(self.fc1(x))
         x = self.fc2(x)
-        y=x
         x = F.relu(x)
+        y=x
         x = self.fc3(x)
         output = F.log_softmax(x, dim=1)
         return output,y
 
 print('Inicia')
 print(device)
+
 exes=2000 #numero de ejemplos que se van a utilizar para el entrenamiento
 
 random_seed = 5900
@@ -313,7 +312,6 @@ optimizer = optim.SGD(network.parameters(), lr=learning_rate,
                       momentum=momentum)
 n_epochs = 2
 beta=0.7 #covarianza
-alpha=0.0 #distancia entre medias
 si= False  #<------------------------------------ACA ESTA EL PARAMETRO-----------
 myloss=ClassDistancePenaltyLoss(10,si)
 
@@ -323,7 +321,8 @@ test_losses = []
 test_counter = [i*len(train_loader.dataset) for i in range(n_epochs + 1)]
 
 test()
-e=0
+
+e=0 #para contar el numero de epocas que se hacen finalmente (si es el caso)
 start_time = time.time()
 
 for epoch in range(n_epochs):
@@ -345,12 +344,8 @@ for epoch in range(n_epochs):
 
       loss.backward()
       optimizer.step()
-      '''
-      if salir<0.000000000005:
-        break
-      '''
+
       if batch_idx % log_interval == 0:
-        #print('cov ', valor.detach().cpu().numpy(), 'beta= ', beta)
         print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
           epoch,1 * len(data), len(train_loader.dataset),
           100. * batch_idx / len(train_loader), loss.item()))
@@ -363,10 +358,10 @@ for epoch in range(n_epochs):
     break
 execution_time = (time.time() - start_time)
 print('Execution time in seconds: ' + str(execution_time))
-#acc=test()
+acc=test()
 
-#acc=test()
-#torch.save(network, '/content/drive/MyDrive/MNIST_False3.pth')
+#---- Save the model
+torch.save(network, '/content/drive/MyDrive/MNIST_False3.pth')
 #torch.save(network.state_dict(), '/content/drive/MyDrive/MNIST_False.pth')
 
 #---- Cálculo de Lipschitz  de cada una de las clases
