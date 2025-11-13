@@ -1,7 +1,4 @@
 CLIR: Covariance Lipschitz-Indirect Restriction
-https://img.shields.io/badge/License-MIT-yellow.svg
-https://img.shields.io/badge/python-3.8+-blue.svg
-https://img.shields.io/badge/PyTorch-%2523EE4C2C.svg?logo=PyTorch&logoColor=white
 
 Official implementation of CLIR (Covariance Lipschitz-Indirect Restriction), a novel method for enhancing neural network robustness against adversarial attacks by indirectly reducing the local Lipschitz constant through variance minimization.
 
@@ -14,64 +11,13 @@ Deep neural networks are vulnerable to adversarial examples—carefully crafted 
 
 ✨ Key Features
 Indirect Lipschitz Regularization: Avoids explicit Lipschitz computation by minimizing output variance
-
 Architecture Agnostic: Works with any neural network architecture (ResNet, EfficientNet, MobileNet, etc.)
-
 Simple Implementation: Single penalty term added to the loss function
-
 Comprehensive Defense: Evaluated against 6 adversarial attack methods (FGSM, PGD, CW, DeepFool, JSMA, Gaussian noise)
-
 Theoretically Grounded: Supported by mathematical proofs linking variance reduction to Lipschitz constant bounds
 
-🚀 Quick Start
-Installation
-bash
-git clone https://github.com/yourusername/CLIR.git
-cd CLIR
-pip install -r requirements.txt
-Basic Usage
-python
-import torch
-from models.clir_wrapper import CLIRWrapper
 
-# Initialize your model
-model = YourNeuralNetwork()
 
-# Wrap with CLIR
-clir_model = CLIRWrapper(model, lambda_param=0.7)
-
-# Training loop
-for batch, (data, labels) in enumerate(dataloader):
-    loss = clir_model.compute_loss(data, labels, classification_loss_fn)
-    loss.backward()
-    optimizer.step()
-Example: Training with CLIR
-python
-import torch
-import torch.nn as nn
-from torchvision import models
-from clir import CLIRLoss
-
-# Load pre-trained model
-model = models.resnet18(pretrained=True)
-num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, 10)  # CIFAR-10
-
-# Define loss with CLIR regularization
-criterion = CLIRLoss(classification_loss=nn.CrossEntropyLoss(), lambda_param=1.2)
-
-# Training
-optimizer = torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
-
-for epoch in range(epochs):
-    for inputs, targets in train_loader:
-        optimizer.zero_grad()
-        
-        outputs = model(inputs)
-        loss = criterion(outputs, targets, model)
-        
-        loss.backward()
-        optimizer.step()
 📁 Repository Structure
 text
 CLIR/
