@@ -9,7 +9,7 @@ Journal: Submitted to Neural Computing and Applications
 #### 📖 Abstract
 Deep neural networks are vulnerable to adversarial examples—carefully crafted inputs that cause misclassification. CLIR addresses this by making networks less sensitive to small input variations through indirect Lipschitz regularization. Instead of explicitly computing the Lipschitz constant (an NP problem), CLIR minimizes the intra-class variance at the network output, which theoretically bounds the local Lipschitz constant and empirically enhances robustness against various adversarial attacks.
 
-![CLIR Animation](media/spiral_no_clir.gif)
+![CLIR Animation](media/spiral_train_no_CLIR.gif)
 
 #### ✨ Key Features
 * Indirect Lipschitz Regularization: Avoids explicit Lipschitz computation by minimizing output variance
