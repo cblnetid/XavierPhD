@@ -1,6 +1,6 @@
-**CLIR: Covariance Lipschitz-Indirect Restriction**
+#**CLIR: Covariance Lipschitz-Indirect Restriction**
 
-Official implementation of CLIR (Covariance Lipschitz-Indirect Restriction), a novel method for enhancing neural network robustness against adversarial attacks by indirectly reducing the local Lipschitz constant through variance minimization.
+##Official implementation of CLIR (Covariance Lipschitz-Indirect Restriction), a novel method for enhancing neural network robustness against adversarial attacks by indirectly reducing the local Lipschitz constant through variance minimization.
 
 Paper: "Lipschitz-indirect method for robustness and defense of neural networks"
 Authors: Xavier Sierra-Canto, Carlos Brito-Loeza, Ricardo Legarda-Saenz
