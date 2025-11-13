@@ -94,11 +94,10 @@ example_targets.to(device)
 print(example_data.shape)
 
 
-class ClassDistancePenaltyLoss(nn.Module):
+class CLIR(nn.Module):
     def __init__(self, num_classes, norma):
-        super(ClassDistancePenaltyLoss, self).__init__()
+        super(CLIR, self).__init__()
         self.num_classes = num_classes
-        self.norma=norma
 
     def forward(self, x, t):
         vc=torch.zeros(1).to(device)
@@ -109,12 +108,7 @@ class ClassDistancePenaltyLoss(nn.Module):
 
           cla=x[t==j].to(device) #extraigo la matriz con los puntos de esa clase
           ccov=torch.cov(torch.t(cla))
-
-          if self.norma:
-              ncla=torch.linalg.vector_norm(torch.diag(ccov,0),ord=1)
-          else:
-              ccov=torch.cov(torch.t(cla))
-              ncla=torch.trace(ccov)
+          ncla=torch.trace(ccov)
           vc=vc+ncla
 
         penalty=vc/self.num_classes
