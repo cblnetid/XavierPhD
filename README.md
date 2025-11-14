@@ -11,6 +11,11 @@ Deep neural networks are vulnerable to adversarial examples—carefully crafted 
 <table>
   <tr>
     <td align="center">
+      <img src="media/spiral.png" width="600" alt="Initial">
+      <br>
+      <sup><em>Initial problem</em></sup>
+    </td>
+    <td align="center">
       <img src="media/spiral_train_no_CLIR.gif" width="400" alt="Without CLIR">
       <br>
       <sup><em>Training progression: Standard</em></sup>
