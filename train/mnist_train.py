@@ -84,7 +84,7 @@ test_loader = torch.utils.data.DataLoader(
                                torchvision.transforms.Normalize(
                                  (0.1307,), (0.3081,))
                              ])),
-  batch_size=batch_size_test, shuffle=True)
+  batch_size=batch_size_test, shuffle=False)
 
 examples = enumerate(train_loader)
 batch_idx, (example_data, example_targets) = next(examples)
